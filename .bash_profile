@@ -1,5 +1,3 @@
-source $HOME/.functions
-source $HOME/.aliases
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
 
