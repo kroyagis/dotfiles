@@ -1,6 +1,19 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+fzf-down() {
+  fzf --height 50% "$@" --border
+}
+
+gbb() {
+  branch=$(git branch -a --color=always | grep -v '/HEAD\s' | sort |
+  fzf-down --ansi --multi --tac --preview-window right:70% \
+    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
+  sed 's/^..//' | cut -d' ' -f1 |
+  sed 's#^remotes/origin/##') &&
+  git checkout $branch
+}
+
 export BETTER_ERRORS_EDITOR="x-mine://open?file=%{file}&line=%{line}"
 export TERM=xterm-kitty
 
