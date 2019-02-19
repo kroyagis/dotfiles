@@ -1,7 +1,7 @@
 export TERM=xterm-kitty
-export ZSH=/Users/jiwoongyou/.oh-my-zsh
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+export ZSH=/Users/jiwoongyou/.oh-my-zsh
 export PATH=$PATH:/usr/local/go/bin # go
 export SSH_KEY_PATH="~/.ssh/rsa_id" # ssh
 export FZF_DEFAULT_OPTS='
@@ -9,9 +9,8 @@ export FZF_DEFAULT_OPTS='
   --color info:254,prompt:37,spinner:108,pointer:235,marker:235
 '
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
-# NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
 
 eval "$(hub alias -s)"
 
@@ -40,8 +39,6 @@ plugins=(
   git
   nulogy
 )
-
-
 
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
