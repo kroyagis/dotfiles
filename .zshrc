@@ -2,6 +2,7 @@ export TERM=xterm-kitty
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export ZSH=/Users/jiwoongyou/.oh-my-zsh
+export HISTFILE="$HOME/.zsh_history"
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 export SSH_KEY_PATH="~/.ssh/rsa_id" # ssh
