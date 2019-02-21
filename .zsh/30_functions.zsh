@@ -1,3 +1,16 @@
+fzf-down() {
+  fzf --height 50% "$@" --border
+}
+
+gbb() {
+  branch=$(git branch -a --color=always | grep -v '/HEAD\s' | sort |
+  fzf-down --ansi --multi --tac --preview-window right:70% \
+    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
+  sed 's/^..//' | cut -d' ' -f1 |
+  sed 's#^remotes/origin/##') &&
+  git checkout $branch
+}
+
 # Checkout branch
 fbr() {
   local branches branch
@@ -33,3 +46,19 @@ fshow() {
                 {}
 FZF-EOF"
 }
+
+# buildkite
+function buildkite() {
+  BRANCH_NAME=`git symbolic-ref --short -q HEAD`
+
+  if [[ "$PWD" =~ "packmanager" ]]; then
+    if [[ "${RAILS_NEXT:-false}" =~ "true" ]]; then
+      PIPELINE_NAME="packmanager-rails-next"
+    else
+      PIPELINE_NAME="packmanager"
+    fi
+  fi
+
+  open -a "Google Chrome" "https://buildkite.com/nulogy-corp/$PIPELINE_NAME/builds?branch=$BRANCH_NAME"
+}
+
