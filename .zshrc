@@ -13,7 +13,7 @@ export PATH="$GOPATH/bin:$PATH"
 export SSH_KEY_PATH="~/.ssh/rsa_id" # ssh
 export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
-   find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
+   ag . -path "*/\.*" -prune -o -type f -print -o -type l -print |
       sed s/^..//) 2> /dev/null'export FZF_DEFAULT_COMMAND='ag'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
