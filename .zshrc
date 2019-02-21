@@ -14,11 +14,6 @@ export NVM_DIR="$HOME/.nvm"
 
 eval "$(hub alias -s)"
 
-plugins=(
-  git
-)
-
-source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source /Users/jiwoongyou/src/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
