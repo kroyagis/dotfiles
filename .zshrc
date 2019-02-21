@@ -3,6 +3,11 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=100000
+export HISTFILESIZE=100000
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 export SSH_KEY_PATH="~/.ssh/rsa_id" # ssh
