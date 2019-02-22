@@ -13,7 +13,7 @@ alias cdsrc="cd ~/src"
 alias cdpmm="cd ~/src/packmanager/master"
 alias cdpmr="cd ~/src/packmanager/release"
 alias cdpmp="cd ~/src/packmanager/production"
-
+alias -g ..="cd .."
 # Rails
 alias be="bundle exec"
 
