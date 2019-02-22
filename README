@@ -4,3 +4,7 @@ dotfiles for @kroyagis
     ／ (*ﾟーﾟ)／＼
  .／|￣￣∪∪￣|＼／
     |＿＿＿＿＿|／
+
+Install
+
+curl -Lks http://bit.do/setup-config | /bin/bash
