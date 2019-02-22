@@ -1,5 +1,5 @@
 #dotfile
-alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Wifi
 alias airportcycle='networksetup -setairportpower en0 off; networksetup -setairportpower en0 on'
