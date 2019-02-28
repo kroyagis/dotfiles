@@ -38,8 +38,8 @@ alias gc='git commit -v'
 alias gc!='git commit -v --amend'
 alias gcn!='git commit -v --no-edit --amend'
 
-alias gclean='git clean -fd'
-alias gpristine='git reset --hard && git clean -dfx'
+alias grh='git reset HEAD~'
+
 alias gco='git checkout'
 
 alias gd='git diff'
