@@ -26,6 +26,7 @@ alias fsl="ff && foreman start -f Procfile.lite"
 alias fsa="ff && foreman start -f Procfile.all"
 
 # git
+alias gitconfig="nvim $HOME/.gitconfig"
 alias g='git'
 
 alias ga='git add'
