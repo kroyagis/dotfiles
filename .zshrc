@@ -1,6 +1,4 @@
 export TERM=xterm-kitty
-export VISUAL=nvim
-export EDITOR="$VISUAL"
 
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000
