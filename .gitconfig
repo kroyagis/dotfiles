@@ -1,6 +1,7 @@
 [core]
 	pager = less -+F -+X
 	hooksPath = /Users/jiwoongyou/.git-templates/hooks
+	editor = vim
 [alias]
   aliases = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/'
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
