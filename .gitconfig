@@ -27,5 +27,6 @@
   cmd = kitty kitty +kitten diff $LOCAL $REMOTE
 [pager]
 	show = true
+	log = "less -F"
 [status]
 	short = true
