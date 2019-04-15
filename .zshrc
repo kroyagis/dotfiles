@@ -19,7 +19,12 @@ export FZF_DEFAULT_COMMAND='
 		find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
       sed s/^..//) 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS='
+	  --color=bg+:#073642,bg:#002b36,spinner:#719e07,hl:#586e75
+		--color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07
+		--color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07
 
+'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
 
