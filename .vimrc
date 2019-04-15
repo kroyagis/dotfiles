@@ -103,7 +103,14 @@ Plug 'Yggdroot/indentLine'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'rhysd/clever-f.vim'
 call plug#end()
+
+" for deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_complete_delay = 0
+let g:deoplete#max_list = 10000
+" 一つ目の候補を選択状態にする
+set completeopt+=noinsert
+
 let test#strategy = "vimterminal"
 
 " colorscheme
