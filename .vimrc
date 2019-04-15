@@ -102,6 +102,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'rhysd/clever-f.vim'
+Plug 'osyo-manga/vim-anzu'
 call plug#end()
 
 " for deoplete
@@ -134,6 +135,12 @@ let g:lightline = {
   \   'anzu': 'anzu#search_status'
   \ }
   \ }
+
+" for vim-anzu
+nmap n nzz<Plug>(anzu-update-search-status)
+nmap N Nzz<Plug>(anzu-update-search-status)
+nmap * <Plug>(anzu-star)
+nmap # <Plug>(anzu-sharp)
 
 " for vim-test
 nmap <silent> t<C-n> :TestNearest<CR>
