@@ -25,5 +25,7 @@ let test#strategy = "vimterminal"
 
 " colorscheme
 syntax enable
+" シンタックスハイライトの最大行数
+set synmaxcol=200
 set background=dark
 colorscheme solarized
