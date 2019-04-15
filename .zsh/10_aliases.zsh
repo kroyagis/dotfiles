@@ -5,7 +5,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias airportcycle='networksetup -setairportpower en0 off; networksetup -setairportpower en0 on'
 
 # ZSH 
-alias zshconfig="nvim ~/.zshrc"
+alias zshconfig="vim ~/.zshrc"
 alias zshload="source ~/.zshrc"
 
 # Directory
