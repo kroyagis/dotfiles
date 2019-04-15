@@ -111,7 +111,7 @@ let g:deoplete#max_list = 10000
 " 一つ目の候補を選択状態にする
 set completeopt+=noinsert
 
-let test#strategy = "vimterminal"
+let test#strategy = "dispatch"
 
 " colorscheme
 syntax enable
@@ -134,3 +134,10 @@ let g:lightline = {
   \   'anzu': 'anzu#search_status'
   \ }
   \ }
+
+" for vim-test
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
