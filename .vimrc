@@ -100,6 +100,7 @@ Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'itchyny/lightline.vim'
 Plug 'Yggdroot/indentLine'
+Plug 'bronson/vim-trailing-whitespace'
 call plug#end()
 let g:deoplete#enable_at_startup = 1
 let test#strategy = "vimterminal"
