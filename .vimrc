@@ -107,6 +107,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'rhysd/clever-f.vim'
 Plug 'osyo-manga/vim-anzu'
+Plug 'tpope/vim-dispatch'
 call plug#end()
 
 " for deoplete
@@ -116,7 +117,6 @@ let g:deoplete#max_list = 10000
 " 一つ目の候補を選択状態にする
  set completeopt+=noinsert
 
-let test#strategy = "dispatch"
 
 " colorscheme
 syntax enable
@@ -147,6 +147,7 @@ nmap * <Plug>(anzu-star)
 nmap # <Plug>(anzu-sharp)
 
 " for vim-test
+let test#strategy = "dispatch"
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-f> :TestFile<CR>
 nmap <silent> t<C-s> :TestSuite<CR>
