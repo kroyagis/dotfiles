@@ -95,7 +95,11 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test'
-Plug 'Shougo/deoplete.nvim'
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'fishbullet/deoplete-ruby'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'itchyny/lightline.vim'
@@ -110,7 +114,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay = 0
 let g:deoplete#max_list = 10000
 " 一つ目の候補を選択状態にする
-set completeopt+=noinsert
+ set completeopt+=noinsert
 
 let test#strategy = "dispatch"
 
