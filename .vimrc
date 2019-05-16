@@ -84,7 +84,8 @@ syntax on
 let mapleader=" "
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>r :Rg<CR>
-
+" Fast saving
+nmap <leader>w :w!<cr>
 call plug#begin('~/.vim/plugged')
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
