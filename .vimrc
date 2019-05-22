@@ -4,7 +4,7 @@ set relativenumber
 set mouse=a
 set clipboard=unnamed
 " copy current filepath to clipboard
-noremap <silent> <F4> :let @+=expand("%:p")<CR>
+noremap <silent> <F4> :let @+=join([expand('%'),  line(".")], ':')<CR>
 syntax on
 let g:mapleader=" "
 set showtabline=2
