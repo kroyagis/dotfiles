@@ -1,5 +1,11 @@
 " Copy pasted from https://qiita.com/nrk_baby/items/154e3fa15c48a39e3375#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3pluginstoml
 " 表示・設定系
+set relativenumber
+set mouse=a
+set clipboard=unnamed
+syntax on
+let g:mapleader=" "
+set showtabline=2
 " 挿入モードでTABキーを押した際、対応する数のスペースを入力
 set expandtab
 " 画面上でタブ文字が占める幅の指定
@@ -77,15 +83,28 @@ nnoremap <C-l> <C-w>l
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 
-set relativenumber
-set mouse=a
-set clipboard=unnamed
-syntax on
-let mapleader=" "
+" Buffer
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<CR>
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
+
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>r :Rg<CR>
 " Fast saving
 nmap <leader>w :w!<cr>
+
 call plug#begin('~/.vim/plugged')
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
@@ -96,19 +115,16 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test'
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-Plug 'fishbullet/deoplete-ruby'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'itchyny/lightline.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'rhysd/clever-f.vim'
 Plug 'osyo-manga/vim-anzu'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-unimpaired'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
+Plug 'mengelbrecht/lightline-bufferline'
+Plug 'junegunn/vim-peekaboo'
 call plug#end()
 
 " for deoplete
@@ -117,7 +133,6 @@ let g:deoplete#auto_complete_delay = 0
 let g:deoplete#max_list = 10000
 " 一つ目の候補を選択状態にする
  set completeopt+=noinsert
-
 
 " colorscheme
 syntax enable
@@ -133,13 +148,30 @@ let g:lightline = {
   \ 'active': {
   \   'left': [
   \     ['mode', 'paste'],
-  \     ['readonly', 'filename', 'modified', 'anzu']
+  \     ['filename', 'fugitive', 'readonly', 'modified', 'anzu']
   \   ]
   \ },
+  \ 'component': {
+  \   'fugitive': '%<%{LightlineFugitive()}'
+  \ },
   \ 'component_function': {
-  \   'anzu': 'anzu#search_status'
+  \   'anzu': 'anzu#search_status',
+  \ },
   \ }
-  \ }
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+let g:lightline#bufferline#filename_modifier = ':t'
+function! LightlineFugitive()
+  if &ft !~? 'vimfiler' && exists('*fugitive#head')
+    let branch = fugitive#head()
+    if len(branch) < 25
+      return branch
+    endif
+    return branch[:20] . '...'
+  endif
+  return ''
+endfunction
 
 " for vim-anzu
 nmap n nzz<Plug>(anzu-update-search-status)
@@ -164,3 +196,6 @@ let g:netrw_winsize = 25
 
 " for vim-gitgutter
 set updatetime=100
+nmap <leader>cp <Plug>GitGutterPreviewHunk
+nmap <leader>ca <Plug>GitGutterStageHunk
+nmap <leader>cr <Plug>GitGutterUndoHunk

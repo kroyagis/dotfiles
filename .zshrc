@@ -8,6 +8,7 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
+setopt EXTENDED_HISTORY
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 
 export GOPATH="$HOME/go"
