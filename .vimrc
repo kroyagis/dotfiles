@@ -180,6 +180,7 @@ nmap n nzz<Plug>(anzu-update-search-status)
 nmap N Nzz<Plug>(anzu-update-search-status)
 nmap * <Plug>(anzu-star)
 nmap # <Plug>(anzu-sharp)
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 " for vim-test
 let test#strategy = "dispatch"
