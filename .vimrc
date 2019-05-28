@@ -146,30 +146,19 @@ let g:lightline = {
   \ 'active': {
   \   'left': [
   \     ['mode', 'paste'],
-  \     ['filename', 'fugitive', 'readonly', 'modified', 'anzu']
+  \     ['cocstatus', 'currentfunction', 'filename', 'readonly', 'modified', 'anzu']
   \   ]
-  \ },
-  \ 'component': {
-  \   'fugitive': '%<%{LightlineFugitive()}'
   \ },
   \ 'component_function': {
   \   'anzu': 'anzu#search_status',
-  \ },
+  \   'cocstatus': 'coc#status',
+  \   'currentfunction': 'CocCurrentFunction'
+  \ }
   \ }
 let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
 let g:lightline#bufferline#filename_modifier = ':t'
-function! LightlineFugitive()
-  if &ft !~? 'vimfiler' && exists('*fugitive#head')
-    let branch = fugitive#head()
-    if len(branch) < 25
-      return branch
-    endif
-    return branch[:20] . '...'
-  endif
-  return ''
-endfunction
 
 " for vim-anzu
 nmap n nzz<Plug>(anzu-update-search-status)
