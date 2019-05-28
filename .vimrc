@@ -130,7 +130,10 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 call plug#end()
 
 " 一つ目の候補を選択状態にする
- set completeopt+=noinsert
+set completeopt+=noinsert
+
+" for coc
+nmap <silent> gd <Plug>(coc-definition)
 
 " colorscheme
 syntax enable
@@ -141,6 +144,9 @@ colorscheme solarized
 
 " for lightline.vim
 set laststatus=2
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
 let g:lightline = {
   \ 'colorscheme': 'wombat',
   \ 'active': {
