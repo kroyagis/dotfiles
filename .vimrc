@@ -124,9 +124,9 @@ Plug 'rhysd/clever-f.vim'
 Plug 'osyo-manga/vim-anzu'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-unimpaired'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'junegunn/vim-peekaboo'
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 call plug#end()
 
 " for deoplete
