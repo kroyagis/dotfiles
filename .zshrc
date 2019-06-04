@@ -1,3 +1,6 @@
+autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
+
 export TERM=xterm-kitty
 
 export HISTFILE="$HOME/.zsh_history"
