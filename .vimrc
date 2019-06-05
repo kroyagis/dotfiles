@@ -134,6 +134,7 @@ set completeopt+=noinsert
 
 " for coc
 nmap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 
 " colorscheme
 syntax enable
@@ -159,7 +160,7 @@ let g:lightline = {
   \   'anzu': 'anzu#search_status',
   \   'cocstatus': 'coc#status',
   \   'currentfunction': 'CocCurrentFunction'
-  \ }
+  \ },
   \ }
 let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
