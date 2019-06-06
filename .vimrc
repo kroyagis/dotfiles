@@ -195,3 +195,11 @@ set updatetime=100
 nmap <leader>cp <Plug>GitGutterPreviewHunk
 nmap <leader>ca <Plug>GitGutterStageHunk
 nmap <leader>cr <Plug>GitGutterUndoHunk
+
+" for fzf
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep('rg --column --no-heading --line-number --color=always '.shellescape(<q-args>),
+  \ 1,
+  \ fzf#vim#with_preview(),
+  \ <bang>0)
+
