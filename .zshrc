@@ -12,12 +12,23 @@ setopt HIST_FIND_NO_DUPS
 setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
 setopt EXTENDED_HISTORY
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 export SSH_KEY_PATH="~/.ssh/rsa_id" # ssh
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
+
+eval "$(hub alias -s)"
+
+##############################################
+############### ZSH CUSTOM ###################
+##############################################
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export BAT_THEME="base16"
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
 		find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
@@ -27,14 +38,7 @@ export FZF_DEFAULT_OPTS='
 	  --color=bg+:#073642,bg:#002b36,spinner:#719e07,hl:#586e75
 		--color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07
 		--color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07
-
 '
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
-
-eval "$(hub alias -s)"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source /Users/jiwoongyou/src/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
