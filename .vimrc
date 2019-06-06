@@ -102,8 +102,6 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
 
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>r :Rg<CR>
 " Fast saving
 nmap <leader>w :w!<cr>
 
@@ -203,3 +201,7 @@ command! -bang -nargs=* Rg
   \ fzf#vim#with_preview(),
   \ <bang>0)
 
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>r :Rg<CR>
+nnoremap <leader>h :History<CR>
+nnoremap <leader>l :Lines<CR>
