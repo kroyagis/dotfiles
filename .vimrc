@@ -214,5 +214,5 @@ command! -bang -nargs=* Rg
 
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>r :Rg<CR>
-nnoremap <leader>h :History<CR>
-nnoremap <leader>l :Lines<CR>
+nnoremap <leader>e :History<CR>
+nnoremap <leader>o :Lines<CR>
