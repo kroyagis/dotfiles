@@ -27,7 +27,6 @@ eval "$(hub alias -s)"
 ##############################################
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export BAT_THEME="base16"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
