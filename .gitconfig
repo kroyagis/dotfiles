@@ -17,6 +17,7 @@
 [pull]
 	rebase = true
 [diff]
+  algorithm = patience
   tool = kitty
   guitool = kitty.gui
 [difftool]
