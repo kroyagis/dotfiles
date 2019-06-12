@@ -65,8 +65,6 @@ set incsearch
 set hlsearch
 " コマンドを画面最下部に表示する
 set showcmd
-" ◆や○文字が崩れる問題を解決"
-set ambiwidth=double
 " インサートモードでbackspaceを有効に
 set backspace=indent,eol,start
 " 入力モード中に素早くjjと入力した場合はESCとみなす
