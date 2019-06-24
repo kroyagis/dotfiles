@@ -78,6 +78,8 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+nnoremap <C-E> 2<C-E>
+nnoremap <C-Y> 2<C-Y>
 
 nnoremap <silent> + :let winstate = winsaveview()<bar>
       \ exec "normal! mzgg=G`z"<bar>
