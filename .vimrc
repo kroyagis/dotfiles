@@ -149,22 +149,22 @@ colorscheme solarized
 " for lightline.vim
 set laststatus=2
 function! CocCurrentFunction()
-    return get(b:, 'coc_current_function', '')
+  return get(b:, 'coc_current_function', '')
 endfunction
 let g:lightline = {
-  \ 'colorscheme': 'wombat',
-  \ 'active': {
-  \   'left': [
-  \     ['mode', 'paste'],
-  \     ['cocstatus', 'currentfunction', 'filename', 'readonly', 'modified', 'anzu']
-  \   ]
-  \ },
-  \ 'component_function': {
-  \   'anzu': 'anzu#search_status',
-  \   'cocstatus': 'coc#status',
-  \   'currentfunction': 'CocCurrentFunction'
-  \ },
-  \ }
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [
+      \     ['mode', 'paste'],
+      \     ['cocstatus', 'currentfunction', 'filename', 'readonly', 'modified', 'anzu']
+      \   ]
+      \ },
+      \ 'component_function': {
+      \   'anzu': 'anzu#search_status',
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction'
+      \ },
+      \ }
 let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
@@ -211,24 +211,24 @@ nmap <leader>cr <Plug>GitGutterUndoHunk
 
 " for fzf
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep('rg --column --no-heading --line-number --color=always '.shellescape(<q-args>),
-  \ 1,
-  \ fzf#vim#with_preview(),
-  \ <bang>0)
+      \ call fzf#vim#grep('rg --column --no-heading --line-number --color=always '.shellescape(<q-args>),
+      \ 1,
+      \ fzf#vim#with_preview(),
+      \ <bang>0)
 
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>r :Rg<CR>
