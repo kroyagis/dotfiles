@@ -78,6 +78,12 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+nnoremap <silent> + :let winstate = winsaveview()<bar>
+      \ exec "normal! mzgg=G`z"<bar>
+      \ call winrestview(winstate)<bar>
+      \ unlet winstate<cr>
+
 " /{pattern}の入力中は「/」をタイプすると自動で「\/」が、
 " ?{pattern}の入力中は「?」をタイプすると自動で「\?」が 入力されるようになる
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
