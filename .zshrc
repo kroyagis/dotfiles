@@ -41,6 +41,9 @@ export FZF_DEFAULT_OPTS='
 
 source /Users/jiwoongyou/src/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
+
 # load all .zsh config files
 for f in ~/.zsh/[0-9]*.(sh|zsh)
 do
