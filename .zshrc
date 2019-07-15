@@ -1,3 +1,6 @@
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+    tmux attach -t default || tmux new -s default
+fi
 autoload -U +X bashcompinit && bashcompinit
 autoload -U +X compinit && compinit
 
