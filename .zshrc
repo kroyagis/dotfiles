@@ -37,6 +37,7 @@ export FZF_DEFAULT_COMMAND='
       sed s/^..//) 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='
+    --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all
 	  --color=bg+:#073642,bg:#002b36,spinner:#719e07,hl:#586e75
 		--color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07
 		--color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07

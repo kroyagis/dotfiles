@@ -71,3 +71,7 @@ alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
 
 alias gwch='git whatchanged -p --abbrev-commit --pretty=medium'
 alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify -m "--wip-- [skip ci]"'
+
+# PE
+alias pe='path-extractor'
+alias -g P='| pe | fzf -m | read filename; [ ! -z $filename ] && mine $filename'
