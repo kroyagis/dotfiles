@@ -127,7 +127,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'honza/vim-snippets'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'rhysd/clever-f.vim'
-Plug 'osyo-manga/vim-anzu'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-unimpaired'
 Plug 'mengelbrecht/lightline-bufferline'
@@ -159,7 +158,7 @@ let g:lightline = {
       \ 'active': {
       \   'left': [
       \     ['mode', 'paste'],
-      \     ['cocstatus', 'currentfunction', 'filename', 'readonly', 'modified', 'anzu']
+      \     ['cocstatus', 'currentfunction', 'filename', 'readonly', 'modified',]
       \   ]
       \ },
       \ 'component_function': {
