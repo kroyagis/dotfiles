@@ -211,13 +211,6 @@ nmap <Leader>8 <Plug>lightline#bufferline#go(8)
 nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 
-" for vim-anzu
-nmap n nzz<Plug>(anzu-update-search-status)
-nmap N Nzz<Plug>(anzu-update-search-status)
-nmap * <Plug>(anzu-star)
-nmap # <Plug>(anzu-sharp)
-nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
-
 " for vim-test
 let test#strategy = "dispatch"
 nmap <silent> t<C-n> :TestNearest<CR>
@@ -255,12 +248,11 @@ let g:fzf_colors =
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
 command! -bang -nargs=* Rg
-      \ call fzf#vim#grep('rg --column --no-heading --line-number --color=always '.shellescape(<q-args>),
+      \ call fzf#vim#grep('rg --column --no-heading --line-number --color=always --glob=!node_modules/* '.shellescape(<q-args>),
       \ 1,
       \ fzf#vim#with_preview(),
       \ <bang>0)
 
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>r :Rg<CR>
-nnoremap <leader>p :History<CR>
-nnoremap <leader>o :Lines<CR>
+nnoremap <leader>o :BLines<CR>
