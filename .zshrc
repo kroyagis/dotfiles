@@ -24,7 +24,6 @@ eval "$(jira --completion-script-bash)"
 ##############################################
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
 		find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
