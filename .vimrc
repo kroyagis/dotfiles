@@ -262,3 +262,4 @@ command! -bang -nargs=* Rg
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>r :Rg<CR>
 nnoremap <leader>o :BLines<CR>
+noremap <silent> <F12> :BTags<CR>
