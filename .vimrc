@@ -141,8 +141,10 @@ set completeopt+=noinsert
 
 " for coc
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 nnoremap <silent> <leader>e  :<C-u>CocList -A --normal mru<cr>
+
 " Use <C-l> for trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
 
@@ -187,13 +189,12 @@ let g:lightline = {
       \ 'active': {
       \   'left': [
       \     ['mode', 'paste'],
-      \     ['cocstatus', 'currentfunction', 'filename', 'readonly', 'modified',]
+      \     ['fugitive', 'cocstatus', 'currentfunction', 'filename', 'readonly', 'modified',]
       \   ]
       \ },
-      \ 'component_expand': {
-      \   'cocstatus': 'coc#status'
-      \ },
       \ 'component_function': {
+      \   'fugitive': 'MyFugitive',
+      \   'cocstatus': 'coc#status',
       \   'currentfunction': 'CocCurrentFunction'
       \ },
       \ }
@@ -202,6 +203,9 @@ let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
 let g:lightline#bufferline#filename_modifier = ':t'
 let g:lightline#bufferline#show_number = 2
+function! MyFugitive()
+  return &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head()) ? '⭠ '.fugitive#head() : ''
+endfunction
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
 nmap <Leader>3 <Plug>lightline#bufferline#go(3)
