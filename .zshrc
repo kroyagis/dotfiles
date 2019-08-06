@@ -18,7 +18,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
 
 eval "$(hub alias -s)"
-eval "$(jira --completion-script-bash)"
 ##############################################
 ############### ZSH CUSTOM ###################
 ##############################################
