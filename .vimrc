@@ -132,6 +132,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'junegunn/vim-peekaboo'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'farmergreg/vim-lastplace'
 call plug#end()
 
 " 一つ目の候補を選択状態にする
