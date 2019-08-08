@@ -1,3 +1,10 @@
+zshconfig() {
+  local files
+  files=(~/.zsh/[0-9]*.(sh|zsh))
+  files+=(~/.zshrc)
+  ${EDITOR:-nvim} "$(printf '%s\n' "${files[@]}" | fzf -m)"
+}
+
 fzf-down() {
   fzf --height 50% "$@" --border
 }
