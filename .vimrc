@@ -91,6 +91,8 @@ nnoremap <silent> + :let winstate = winsaveview()<bar>
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 
+command! -count=1 -register D :+,+<count>d <reg><bar>norm! ``
+
 " Buffer
 " This allows buffers to be hidden if you've modified a buffer.
 " This is almost a must if you wish to use buffers in this way.
