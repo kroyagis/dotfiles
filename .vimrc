@@ -67,8 +67,8 @@ set hlsearch
 set showcmd
 " インサートモードでbackspaceを有効に
 set backspace=indent,eol,start
-" 入力モード中に素早くjjと入力した場合はESCとみなす
-inoremap jj <Esc>
+" 入力モード中に素早くjkと入力した場合はESCとみなす
+inoremap jk <Esc>
 " ビジュアルモードの選択範囲を * で検索
 vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
 " vを二回で行末まで選択
