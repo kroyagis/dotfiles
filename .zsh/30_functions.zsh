@@ -2,7 +2,7 @@ zshconfig() {
   local files
   files=(~/.zsh/[0-9]*.(sh|zsh))
   files+=(~/.zshrc)
-  ${EDITOR:-nvim} "$(printf '%s\n' "${files[@]}" | fzf -m)"
+  printf '%s\n' $files | fzf -m | xargs nvim
 }
 
 fzf-down() {
