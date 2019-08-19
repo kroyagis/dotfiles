@@ -1,7 +1,7 @@
 zshconfig() {
   local files
   files=(~/.zsh/[0-9]*.(sh|zsh))
-  files+=(~/.zshrc)
+  files=(~/.zshrc "${files[@]}")
   printf '%s\n' $files | fzf -m --height 40% --reverse | xargs nvim
 }
 
