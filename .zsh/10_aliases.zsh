@@ -24,6 +24,9 @@ alias ff="lsof -i:3000,5555 | grep -v Google | tail -n+2 | awk '{ print \$2 }' |
 alias fsl="ff && foreman start -f Procfile.lite"
 alias fsa="ff && foreman start -f Procfile.all"
 
+#jira
+alias j="jira"
+
 # git
 alias gitconfig="nvim $HOME/.gitconfig"
 alias g='git'
