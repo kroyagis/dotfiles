@@ -61,7 +61,7 @@ set smartcase
 " インクリメンタルサーチを行う
 set incsearch
 " 検索結果をハイライト表示
-set hlsearch
+set nohlsearch
 " コマンドを画面最下部に表示する
 set showcmd
 " インサートモードでbackspaceを有効に
