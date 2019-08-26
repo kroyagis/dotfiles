@@ -7,7 +7,6 @@ set clipboard=unnamed
 noremap <silent> <F4> :let @+=join([expand('%'),  line(".")], ':')<CR>
 syntax on
 let g:mapleader=" "
-set showtabline=2
 " 挿入モードでTABキーを押した際、対応する数のスペースを入力
 set expandtab
 " 画面上でタブ文字が占める幅の指定
