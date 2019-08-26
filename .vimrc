@@ -123,6 +123,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'farmergreg/vim-lastplace'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-vinegar'
+Plug 'junegunn/goyo.vim'
 call plug#end()
 
 " for coc
