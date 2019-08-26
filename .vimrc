@@ -162,7 +162,7 @@ let g:coc_snippet_next = '<tab>'
 " colorscheme
 syntax enable
 " シンタックスハイライトの最大行数
-set synmaxcol=200
+set synmaxcol=300
 set background=dark
 colorscheme solarized
 
