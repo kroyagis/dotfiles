@@ -76,4 +76,4 @@ alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commi
 
 # PE
 alias pe='path-extractor'
-alias -g P='| pe | fzf -m | read filename; [ ! -z $filename ] && mine $filename'
+alias -g P='| pe | uniq| fzf -m | read filename; [ ! -z $filename ] && nvim $filename'
