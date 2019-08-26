@@ -1,6 +1,6 @@
 " Copy pasted from https://qiita.com/nrk_baby/items/154e3fa15c48a39e3375#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3pluginstoml
 " 表示・設定系
-set relativenumber
+set number relativenumber
 set mouse=a
 set clipboard=unnamed
 " copy current filepath to clipboard
