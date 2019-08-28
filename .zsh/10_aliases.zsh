@@ -1,6 +1,9 @@
 #dotfile
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
+# vim
+alias v="nvim"
+
 # Wifi
 alias airportcycle='networksetup -setairportpower en0 off; networksetup -setairportpower en0 on'
 
