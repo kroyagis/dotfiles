@@ -1,7 +1,21 @@
 [core]
-	pager = less -+F -+X
+	pager = /usr/local/Cellar/git/2.23.0/share/git-core/contrib/diff-highlight/diff-highlight | less -+F -+X
 	hooksPath = /Users/jiwoongyou/.git-templates/hooks
-	editor = vim
+	editor = nvim
+[color]
+  ui = always
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+[color "diff"]
+  commit = green
+  meta = yellow
+  frag = cyan
+  old = red
+  new = green
+  whitespace = red reverse
 [alias]
   aliases = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/'
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
