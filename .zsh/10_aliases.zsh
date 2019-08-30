@@ -43,6 +43,7 @@ alias gb='git branch'
 alias gc='git commit -v'
 alias gc!='git commit -v --amend'
 alias gcn!='git commit -v --no-edit --amend'
+alias gcm='git commit -m'
 
 alias grh='git reset HEAD~'
 
