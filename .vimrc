@@ -107,7 +107,7 @@ Plug 'tpope/vim-endwise'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'altercation/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -163,8 +163,9 @@ let g:coc_snippet_next = '<tab>'
 syntax enable
 " シンタックスハイライトの最大行数
 set synmaxcol=300
+set termguicolors
 set background=dark
-colorscheme solarized
+colorscheme solarized8
 
 " for lightline.vim
 set laststatus=2
