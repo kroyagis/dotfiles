@@ -165,7 +165,7 @@ syntax enable
 set synmaxcol=300
 set termguicolors
 set background=dark
-colorscheme solarized8
+colorscheme solarized8_flat
 
 " for lightline.vim
 set laststatus=2
