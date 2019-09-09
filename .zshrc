@@ -14,9 +14,6 @@ export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 export SSH_KEY_PATH="~/.ssh/rsa_id" # ssh
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
-
 eval "$(hub alias -s)"
 ##############################################
 ############### ZSH CUSTOM ###################
@@ -40,6 +37,9 @@ source /Users/jiwoongyou/src/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
+
+# fnm
+eval "$(fnm env --multi)"
 
 # load all .zsh config files
 for f in ~/.zsh/[0-9]*.(sh|zsh)
