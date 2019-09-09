@@ -22,7 +22,7 @@ gbb() {
 fbr() {
   local branches branch
   branches=$(git branch -vv) &&
-  branch=$(echo "$branches" | fzf +m) &&
+  branch=$(echo "$branches" | fzf +m --height 40% --reverse) &&
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 
