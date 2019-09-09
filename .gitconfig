@@ -2,8 +2,6 @@
 	pager = /usr/local/Cellar/git/2.23.0/share/git-core/contrib/diff-highlight/diff-highlight | less -+F -+X
 	hooksPath = /Users/jiwoongyou/.git-templates/hooks
 	editor = nvim
-[color]
-  ui = always
 [color "diff-highlight"]
   oldNormal = red bold
   oldHighlight = red bold 52
