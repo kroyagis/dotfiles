@@ -21,6 +21,8 @@ set autoindent
 set smartindent
 " スクロールする時に下が見えるようにする
 set scrolloff=5
+"set breakindent
+"set breakindentopt=shift:2
 " .swapファイルを作らない
 set noswapfile
 " バックアップファイルを作らない
@@ -61,7 +63,7 @@ set smartcase
 " インクリメンタルサーチを行う
 set incsearch
 " 検索結果をハイライト表示
-set nohlsearch
+set hlsearch
 " コマンドを画面最下部に表示する
 set showcmd
 " インサートモードでbackspaceを有効に
@@ -107,12 +109,10 @@ Plug 'tpope/vim-endwise'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'lifepillar/vim-solarized8'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test'
-Plug 'itchyny/lightline.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'rhysd/clever-f.vim'
@@ -124,6 +124,11 @@ Plug 'farmergreg/vim-lastplace'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/goyo.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'rhysd/vim-textobj-ruby'
+Plug 'lifepillar/vim-solarized8'
+Plug 'RRethy/vim-illuminate'
+Plug 'thoughtbot/vim-rspec'
 call plug#end()
 
 " for coc
@@ -131,6 +136,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 nnoremap <silent> <leader>e  :<C-u>CocList -A --normal mru<cr>
+nmap <leader>rn <Plug>(coc-rename)
 
 " Use <C-l> for trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
@@ -164,31 +170,8 @@ syntax enable
 " シンタックスハイライトの最大行数
 set synmaxcol=300
 set termguicolors
-set background=dark
+set background=light
 colorscheme solarized8_flat
-
-" for lightline.vim
-set laststatus=2
-function! CocCurrentFunction()
-  return get(b:, 'coc_current_function', '')
-endfunction
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [
-      \     ['mode', 'paste'],
-      \     ['fugitive', 'cocstatus', 'currentfunction', 'filename', 'readonly', 'modified',]
-      \   ]
-      \ },
-      \ 'component_function': {
-      \   'fugitive': 'MyFugitive',
-      \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction'
-      \ },
-      \ }
-function! MyFugitive()
-  return &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head()) ? '⭠ '.fugitive#head() : ''
-endfunction
 
 " for vim-test
 let test#strategy = "dispatch"
@@ -202,7 +185,7 @@ nmap <silent> t<C-g> :TestVisit<CR>
 set updatetime=100
 nmap <leader>cp <Plug>GitGutterPreviewHunk
 nmap <leader>ca <Plug>GitGutterStageHunk
-nmap <leader>cr <Plug>GitGutterUndoHunk
+nmap <leader>cr <Plug>(GitGutterUndoHunk)
 
 " for fzf
 let g:fzf_colors =
@@ -232,3 +215,6 @@ nnoremap <leader>h :History<CR>
 nnoremap <leader>ch :History:<CR>
 nmap ; :Buffers<CR>
 noremap <silent> <F12> :BTags<CR>
+
+" for vim-rspec
+let g:rspec_command = "!bin/rspec {spec}"
