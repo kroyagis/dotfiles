@@ -1,5 +1,3 @@
-export TERM=xterm-kitty
-
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000
 export HISTFILESIZE=100000
@@ -66,10 +64,10 @@ _gen_fzf_default_opts() {
 _gen_fzf_default_opts
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
-source /Users/jiwoongyou/src/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/src/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
+source /usr/local/share/chruby/chruby.sh 
+source /usr/local/share/chruby/auto.sh
 
 # fnm
 eval "$(fnm env --multi)"
