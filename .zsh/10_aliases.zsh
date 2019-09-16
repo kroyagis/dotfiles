@@ -12,9 +12,7 @@ alias zshload="source ~/.zshrc"
 
 # Directory
 alias cdsrc="cd ~/src"
-alias cdpmm="cd ~/src/packmanager/master"
-alias cdpmr="cd ~/src/packmanager/release"
-alias cdpmp="cd ~/src/packmanager/production"
+alias cdpmm="cd ~/src/PackManager"
 alias -g ..="cd .."
 # Rails
 alias be="bundle exec"
