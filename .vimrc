@@ -21,8 +21,6 @@ set autoindent
 set smartindent
 " スクロールする時に下が見えるようにする
 set scrolloff=5
-"set breakindent
-"set breakindentopt=shift:2
 " .swapファイルを作らない
 set noswapfile
 " バックアップファイルを作らない
