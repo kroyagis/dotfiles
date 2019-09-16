@@ -3,6 +3,10 @@
 set number relativenumber
 set mouse=a
 set clipboard=unnamed
+set signcolumn=yes
+set splitbelow
+set splitright
+let g:tmuxline_preset = 'tmux'
 " copy current filepath to clipboard
 noremap <silent> <F4> :let @+=join([expand('%'),  line(".")], ':')<CR>
 syntax on
@@ -127,6 +131,8 @@ Plug 'rhysd/vim-textobj-ruby'
 Plug 'lifepillar/vim-solarized8'
 Plug 'RRethy/vim-illuminate'
 Plug 'thoughtbot/vim-rspec'
+Plug 'edkolev/tmuxline.vim'
+Plug 'zxqfl/tabnine-vim'
 call plug#end()
 
 " for coc
