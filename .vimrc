@@ -191,6 +191,10 @@ nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 
+" for vim-dispatch
+let g:dispatch_quickfix_height=20
+let g:dispatch_tmux_height=20
+
 " for vim-gitgutter
 set updatetime=100
 nmap <leader>cp <Plug>GitGutterPreviewHunk
