@@ -54,18 +54,3 @@ fshow() {
 FZF-EOF"
 }
 
-# buildkite
-function buildkite() {
-  BRANCH_NAME=`git symbolic-ref --short -q HEAD`
-
-  if [[ "$PWD" =~ "packmanager" ]]; then
-    if [[ "${RAILS_NEXT:-false}" =~ "true" ]]; then
-      PIPELINE_NAME="packmanager-rails-next"
-    else
-      PIPELINE_NAME="packmanager"
-    fi
-  fi
-
-  open -a "Google Chrome" "https://buildkite.com/nulogy-corp/$PIPELINE_NAME/builds?branch=$BRANCH_NAME"
-}
-
