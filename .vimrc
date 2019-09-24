@@ -6,7 +6,16 @@ set clipboard=unnamed
 set signcolumn=yes
 set splitbelow
 set splitright
-let g:tmuxline_preset = 'tmux'
+"let g:tmuxline_preset = 'tmux'
+let g:tmuxline_preset = {
+      \'a'    : '#S',
+      \'b'    : '#W',
+      \'c'    : '#H',
+      \'win'  : '#I #W',
+      \'cwin' : '#I #W',
+      \'x'    : '%a',
+      \'y'    : '#W %R',
+      \'z'    : '#H'}
 " copy current filepath to clipboard
 noremap <silent> <F4> :let @+=join([expand('%'),  line(".")], ':')<CR>
 syntax on
