@@ -84,6 +84,12 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-E> 2<C-E>
 nnoremap <C-Y> 2<C-Y>
 
+" Mimic Emacs Line Editing in Insert Mode Only
+inoremap <C-A> <Home>
+inoremap <C-B> <Left>
+inoremap <C-E> <End>
+inoremap <C-F> <Right>
+
 nnoremap <silent> + :let winstate = winsaveview()<bar>
       \ exec "normal! mzgg=G`z"<bar>
       \ call winrestview(winstate)<bar>
