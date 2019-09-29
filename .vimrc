@@ -66,6 +66,9 @@ set smartcase
 set incsearch
 " 検索結果をハイライト表示
 set hlsearch
+nnoremap <esc><esc> :nohl<cr><esc>
+nnoremap H gT
+nnoremap L gt
 " コマンドを画面最下部に表示する
 set showcmd
 " インサートモードでbackspaceを有効に
@@ -138,15 +141,17 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'RRethy/vim-illuminate'
 Plug 'thoughtbot/vim-rspec'
 Plug 'edkolev/tmuxline.vim'
-Plug 'zxqfl/tabnine-vim'
 call plug#end()
 
 " for coc
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gf <Plug>(coc-float-jump)
+nmap <silent> gfh <Plug>(coc-float-jump)
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 nnoremap <silent> <leader>e  :<C-u>CocList -A --normal mru<cr>
 nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>rf <Plug>(coc-refactor)
 
 " Use <C-l> for trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
