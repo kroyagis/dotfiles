@@ -1,125 +1,79 @@
-" Copy pasted from https://qiita.com/nrk_baby/items/154e3fa15c48a39e3375#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3pluginstoml
-" 表示・設定系
+" Ji You
+" General {{{
+syntax enable
+set synmaxcol=300
+set termguicolors
+set nobackup
+set nowritebackup
 set number relativenumber
 set mouse=a
 set clipboard=unnamed
 set signcolumn=yes
 set splitbelow
 set splitright
-"let g:tmuxline_preset = 'tmux'
-let g:tmuxline_preset = {
-      \'a'    : '#S',
-      \'b'    : '#W',
-      \'c'    : '#H',
-      \'win'  : '#I #W',
-      \'cwin' : '#I #W',
-      \'x'    : '%a',
-      \'y'    : '#W %R',
-      \'z'    : '#H'}
-" copy current filepath to clipboard
-noremap <silent> <F4> :let @+=join([expand('%'),  line(".")], ':')<CR>
-syntax on
-let g:mapleader=" "
-" 挿入モードでTABキーを押した際、対応する数のスペースを入力
+set foldenable
+set foldlevelstart=10
+set modelines=1
 set expandtab
-" 画面上でタブ文字が占める幅の指定
 set tabstop=2
-" 自動インデントでずれる幅の指定
 set shiftwidth=2
-" 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅の指定
 set softtabstop=2
-" 改行時に前の行のインデントを継続する
 set autoindent
-" 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
 set smartindent
-" スクロールする時に下が見えるようにする
 set scrolloff=5
-" .swapファイルを作らない
 set noswapfile
-" バックアップファイルを作らない
-set nowritebackup
-" バックアップをしない
-set nobackup
-" ビープ音を消す
 set belloff=all
-" 移動コマンドを使ったとき、行頭に移動しない
 set nostartofline
-" 対応括弧に<と>のペアを追加
 set matchpairs& matchpairs+=<:>
-" 対応括弧をハイライト表示する
 set showmatch
-" 対応括弧の表示秒数を3秒にする
 set matchtime=3
-" ウィンドウの幅より長い行は折り返され、次の行に続けて表示される
 set wrap
-" 入力されているテキストの最大幅を無効にする
 set textwidth=0
-" 不可視文字を表示
 set list
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
-" インデントをshiftwidthの倍数に丸める
 set shiftround
-" 補完の際の大文字小文字の区別しない
 set infercase
-" 行末1文字までカーソルを移動できるようにする
 set virtualedit=onemore
-" 変更中のファイルでも、保存しないで他のファイルを表示
 set hidden
-" 新しく開く代わりにすでに開いてあるバッファを開く
 set switchbuf=useopen
-" 小文字の検索でも大文字も見つかるようにする
 set ignorecase
-" ただし大文字も含めた検索の場合はその通りに検索する
 set smartcase
-" インクリメンタルサーチを行う
 set incsearch
-" 検索結果をハイライト表示
 set hlsearch
-" コマンドを画面最下部に表示する
 set showcmd
-" インサートモードでbackspaceを有効に
 set backspace=indent,eol,start
-" 入力モード中に素早くjkと入力した場合はESCとみなす
+" }}}
+
+" Keymaps {{{
+let g:mapleader=" "
 inoremap kj <Esc>
-" ビジュアルモードの選択範囲を * で検索
 vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
-" vを二回で行末まで選択
 vnoremap v $h
-" Ctrl + hjkl でウィンドウ間を移動
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <C-E> 2<C-E>
 nnoremap <C-Y> 2<C-Y>
-
-" Mimic Emacs Line Editing in Insert Mode Only
+nnoremap H gT
+nnoremap L gt
+noremap <silent> <F4> :let @+=join([expand('%'),  line(".")], ':')<CR>
+nnoremap <esc><esc> :nohl<CR>
 inoremap <C-A> <Home>
 inoremap <C-B> <Left>
 inoremap <C-E> <End>
 inoremap <C-F> <Right>
-
+nmap <leader>w :w!<cr>
 nnoremap <silent> + :let winstate = winsaveview()<bar>
       \ exec "normal! mzgg=G`z"<bar>
       \ call winrestview(winstate)<bar>
       \ unlet winstate<cr>
-
-" /{pattern}の入力中は「/」をタイプすると自動で「\/」が、
-" ?{pattern}の入力中は「?」をタイプすると自動で「\?」が 入力されるようになる
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
-
 command! -count=1 -register D :+,+<count>d <reg><bar>norm! ``
+" }}}
 
-" Buffer
-" This allows buffers to be hidden if you've modified a buffer.
-" This is almost a must if you wish to use buffers in this way.
-set hidden
-nmap <leader>bq :bp <BAR> bd #<CR>
-
-" Fast saving
-nmap <leader>w :w!<cr>
-
+" Plugs {{{
 call plug#begin('~/.vim/plugged')
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
@@ -143,33 +97,86 @@ Plug 'tpope/vim-vinegar'
 Plug 'junegunn/goyo.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'rhysd/vim-textobj-ruby'
-Plug 'lifepillar/vim-solarized8'
 Plug 'RRethy/vim-illuminate'
 Plug 'thoughtbot/vim-rspec'
 Plug 'edkolev/tmuxline.vim'
-Plug 'zxqfl/tabnine-vim'
+Plug 'kana/vim-textobj-line'
+Plug 'markonm/hlyank.vim'
+Plug 'junegunn/seoul256.vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'honza/vim-snippets'
+Plug 'chrisbra/csv.vim'
+Plug 'justinmk/vim-sneak'
 call plug#end()
+" }}}
 
-" for coc
+" Goyo {{{
+let g:goyo_linenr = 1
+" }}}
+
+" Gutentags {{{
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_project_root = ['package.json', '.git']
+let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
+"Use the following command to clear the cache quickly:
+command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir . '/*')
+let g:gutentags_generate_on_new = 1
+let g:gutentags_generate_on_missing = 1
+let g:gutentags_generate_on_write = 1
+let g:gutentags_generate_on_empty_buffer = 0
+let g:gutentags_ctags_extra_args = [
+      \ '--tag-relative=yes',
+      \ '--fields=+ailmnS',
+      \ ]
+let g:gutentags_ctags_exclude = [
+      \ '*.git', '*.svg', '*.hg',
+      \ '*/tests/*',
+      \ 'build',
+      \ '*.js',
+      \ 'dist',
+      \ '*sites/*/files/*',
+      \ 'bin',
+      \ 'node_modules',
+      \ 'bower_components',
+      \ 'cache',
+      \ 'compiled',
+      \ 'docs',
+      \ 'example',
+      \ 'bundle',
+      \ 'vendor',
+      \ '*.md',
+      \ '*-lock.json',
+      \ '*.lock',
+      \ '*bundle*.js',
+      \ '*build*.js',
+      \ '.*rc*',
+      \ '*.json',
+      \ '*.zip',
+      \ '*.tmp',
+      \ '*.cache',
+      \ 'tags*',
+      \ '*.css',
+      \ '*.less',
+      \ '*.scss',
+      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+      \ ]
+" }}}
+
+" Coc {{{
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
-nnoremap <silent> <leader>e  :<C-u>CocList -A --normal mru<cr>
+
 nmap <leader>rn <Plug>(coc-rename)
 
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
+nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> <leader>e  :<C-u>CocList -A --normal mru<cr>
 
-" Use <C-j> for select text for visual placeholder of snippet.
+imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
 
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<c-j>'
-
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'
-
-" Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
@@ -182,35 +189,43 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = '<tab>'
+"" coc-git
+nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
+" navigate chunks of current buffer
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+" show chunk diff at current position
+nmap gs <Plug>(coc-git-chunkinfo)
+" show commit contains current position
+nmap gc <Plug>(coc-git-commit)
+" create text object for git chunks
+omap ic <Plug>(coc-text-object-inner)
+xmap ic <Plug>(coc-text-object-inner)
+omap ic <Plug>(coc-text-object-outer)
+xmap ic <Plug>(coc-text-object-outer)
 
-" colorscheme
-syntax enable
-" シンタックスハイライトの最大行数
-set synmaxcol=300
-set termguicolors
-set background=light
-colorscheme solarized8_flat
+nmap <leader>rf <Plug>(coc-refactor)
+nmap <leader>fj <Plug>(coc-float-jump)
+nmap <leader>fh <Plug>(coc-float-hide)
+" }}}
 
-" for vim-test
+" Test {{{
 let test#strategy = "dispatch"
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-f> :TestFile<CR>
 nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
+" }}}
 
-" for vim-dispatch
-let g:dispatch_quickfix_height=20
-let g:dispatch_tmux_height=20
-
-" for vim-gitgutter
+" Gitgutter {{{
 set updatetime=100
 nmap <leader>cp <Plug>GitGutterPreviewHunk
 nmap <leader>ca <Plug>GitGutterStageHunk
 nmap <leader>cr <Plug>(GitGutterUndoHunk)
+" }}}
 
-" for fzf
+" Fzf {{{
 let g:fzf_colors =
       \ { 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
@@ -225,6 +240,7 @@ let g:fzf_colors =
       \ 'marker':  ['fg', 'Keyword'],
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
+
 command! -bang -nargs=* Rg
       \ call fzf#vim#grep('rg --column --no-heading --line-number --color=always --glob=!node_modules/* '.shellescape(<q-args>),
       \ 1,
@@ -236,8 +252,28 @@ nnoremap <leader>r :Rg<CR>
 nnoremap <leader>o :BLines<CR>
 nnoremap <leader>h :History<CR>
 nnoremap <leader>ch :History:<CR>
-nmap ; :Buffers<CR>
 noremap <silent> <F12> :BTags<CR>
+" }}}
 
-" for vim-rspec
-let g:rspec_command = "!bin/rspec {spec}"
+" Rspec {{{
+let g:rspec_command = "Dispatch bin/rspec {spec}"
+" }}}
+
+" Tmuxline {{{
+let g:tmuxline_preset = {
+      \'a'    : '#S',
+      \'b'    : '#W',
+      \'c'    : '#(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD)',
+      \'win'  : '#I #W',
+      \'cwin' : '#I #W',
+      \'x'    : '%a',
+      \'y'    : '#W %R',
+      \'z'    : '#H'}
+" }}}
+
+" Seoul256 {{{
+let g:seoul256_background = 236
+let g:seoul256_light_background = 252
+colo seoul256-light
+" }}}
+" vim:foldmethod=marker:foldlevel=0
