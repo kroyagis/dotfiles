@@ -7,11 +7,6 @@
   oldHighlight = red bold 52
   newNormal = green bold
   newHighlight = green bold 22
-[color "diff-highlight"]
-  oldNormal = red bold
-  oldHighlight = red bold 52
-  newNormal = green bold
-  newHighlight = green bold 22
 [color "diff"]
   commit = green
   meta = yellow
@@ -19,6 +14,9 @@
   old = red
   new = green
   whitespace = red reverse
+  algorithm = patience
+  tool = kitty
+  guitool = kitty.gui
 [alias]
   aliases = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/'
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
@@ -33,10 +31,6 @@
 	name = Ji You
 [pull]
 	rebase = true
-[diff]
-  algorithm = patience
-  tool = kitty
-  guitool = kitty.gui
 [difftool]
   prompt = false
   trustExitCode = true
