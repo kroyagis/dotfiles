@@ -49,10 +49,10 @@ let g:mapleader=" "
 inoremap kj <Esc>
 vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
 vnoremap v $h
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+"nnoremap <C-h> <C-w>h
+"nnoremap <C-j> <C-w>j
+"nnoremap <C-k> <C-w>k
+"nnoremap <C-l> <C-w>l
 nnoremap <C-E> 2<C-E>
 nnoremap <C-Y> 2<C-Y>
 nnoremap H gT
@@ -107,11 +107,18 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'honza/vim-snippets'
 Plug 'chrisbra/csv.vim'
 Plug 'justinmk/vim-sneak'
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'dhruvasagar/vim-zoom'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'tpope/vim-bundler'
+Plug 'AndrewRadev/switch.vim'
+Plug 'tpope/vim-commentary'
 call plug#end()
 " }}}
 
 " Goyo {{{
-let g:goyo_linenr = 1
+let g:goyo_linenr = 0
 " }}}
 
 " Gutentags {{{
@@ -167,7 +174,12 @@ let g:gutentags_ctags_exclude = [
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 
-nmap <leader>rn <Plug>(coc-rename)
+nmap <silent> fj <Plug>(coc-float-jump)
+nmap <silent> fh <Plug>(coc-float-hide)
+
+nmap <silent> rf <Plug>(coc-refactor)
+
+nmap <silent> rn <Plug>(coc-rename)
 
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 nnoremap <silent> <leader>e  :<C-u>CocList -A --normal mru<cr>
@@ -188,8 +200,9 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+" }}}
 
-"" coc-git
+" Coc-Git {{{
 nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
 " navigate chunks of current buffer
 nmap [g <Plug>(coc-git-prevchunk)
@@ -198,15 +211,13 @@ nmap ]g <Plug>(coc-git-nextchunk)
 nmap gs <Plug>(coc-git-chunkinfo)
 " show commit contains current position
 nmap gc <Plug>(coc-git-commit)
+nmap ga <Plug>(coc-git-stagechunk)
 " create text object for git chunks
 omap ic <Plug>(coc-text-object-inner)
 xmap ic <Plug>(coc-text-object-inner)
 omap ic <Plug>(coc-text-object-outer)
 xmap ic <Plug>(coc-text-object-outer)
 
-nmap <leader>rf <Plug>(coc-refactor)
-nmap <leader>fj <Plug>(coc-float-jump)
-nmap <leader>fh <Plug>(coc-float-hide)
 " }}}
 
 " Test {{{
@@ -216,8 +227,11 @@ nmap <silent> t<C-f> :TestFile<CR>
 nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
+let test#ruby#rspec#executable = "bin/rspec"
 " }}}
 
+" Dispatch {{{
+" }}}"
 " Gitgutter {{{
 set updatetime=100
 nmap <leader>cp <Plug>GitGutterPreviewHunk
@@ -225,6 +239,12 @@ nmap <leader>ca <Plug>GitGutterStageHunk
 nmap <leader>cr <Plug>(GitGutterUndoHunk)
 " }}}
 
+" Switch {{{
+let g:switch_custom_definitions =
+    \ [
+    \   ['☐', '☑']
+    \ ]
+" }}}
 " Fzf {{{
 let g:fzf_colors =
       \ { 'fg':      ['fg', 'Normal'],
@@ -256,7 +276,7 @@ noremap <silent> <F12> :BTags<CR>
 " }}}
 
 " Rspec {{{
-let g:rspec_command = "Dispatch bin/rspec {spec}"
+let g:rspec_command = "Dispatch RUBYOPT='-W0' bin/rspec {spec}"
 " }}}
 
 " Tmuxline {{{

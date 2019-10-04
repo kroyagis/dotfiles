@@ -8,12 +8,6 @@
   newNormal = green bold
   newHighlight = green bold 22
 [color "diff"]
-  commit = green
-  meta = yellow
-  frag = cyan
-  old = red
-  new = green
-  whitespace = red reverse
   algorithm = patience
   tool = kitty
   guitool = kitty.gui
