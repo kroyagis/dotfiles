@@ -152,7 +152,11 @@ nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 nnoremap <silent> <leader>e  :<C-u>CocList -A --normal mru<cr>
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>rf <Plug>(coc-refactor)
-
+" ignore wrap
+nnoremap j gj
+nnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
 " Use <C-l> for trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
 
