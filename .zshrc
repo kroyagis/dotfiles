@@ -9,6 +9,7 @@ export PATH="$HOME/bin:$PATH"
 export SSH_KEY_PATH="~/.ssh/rsa_id" # ssh
 
 eval "$(hub alias -s)"
+
 ##############################################
 ############### ZSH CUSTOM ###################
 ##############################################
@@ -83,5 +84,35 @@ autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 ### End of Zplugin installer's chunk
 
-zplugin zsh-users/zsh-completions
+zplugin light 'zsh-users/zsh-completions'
+
+zplugin ice pick"async.zsh" src"pure.zsh"
+zplugin light sindresorhus/pure
+
+zplugin ice as"program" pick"bin/git-dsf"
+zplugin light zdharma/zsh-diff-so-fancy
+
+# Binary release in archive, from GitHub-releases page. 
+# After automatic unpacking it provides program "fzf".
+zplugin ice from"gh-r" as"program"
+zplugin load junegunn/fzf-bin
+
+# sharkdp/bat
+zplugin ice as"command" from"gh-r" mv"bat* -> bat" pick"bat/bat"
+zplugin light sharkdp/bat
+
+# ogham/exa, replacement for ls
+zplugin ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
+zplugin light ogham/exa
+
+# cd
+zplugin ice wait"0b" lucid
+zplugin light b4b4r07/enhancd
+
+# zsh-autopair
+zplugin ice wait lucid
+zplugin load hlissner/zsh-autopair
+
+zplugin ice wait"1" lucid atinit"ZPLGM[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
 zplugin light zdharma/fast-syntax-highlighting
+
