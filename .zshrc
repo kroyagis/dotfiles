@@ -3,13 +3,6 @@ export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000
 export HISTFILESIZE=100000
 export SAVEHIST=$HISTSIZE
-
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_FIND_NO_DUPS
-setopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY
-setopt EXTENDED_HISTORY
-
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
