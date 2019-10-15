@@ -43,7 +43,6 @@ set hlsearch
 set showcmd
 set backspace=indent,eol,start
 " }}}
-
 " Keymaps {{{
 let g:mapleader=" "
 inoremap kj <Esc>
@@ -72,7 +71,6 @@ cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 command! -count=1 -register D :+,+<count>d <reg><bar>norm! ``
 " }}}
-
 " Plugs {{{
 call plug#begin('~/.vim/plugged')
 Plug 'vim-ruby/vim-ruby'
@@ -102,7 +100,6 @@ Plug 'thoughtbot/vim-rspec'
 Plug 'edkolev/tmuxline.vim'
 Plug 'kana/vim-textobj-line'
 Plug 'markonm/hlyank.vim'
-Plug 'junegunn/seoul256.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'honza/vim-snippets'
 Plug 'chrisbra/csv.vim'
@@ -114,13 +111,14 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-bundler'
 Plug 'AndrewRadev/switch.vim'
 Plug 'tpope/vim-commentary'
+Plug 'ayu-theme/ayu-vim'
+Plug 'vim-utils/vim-ruby-fold'
+Plug 'mcchrish/nnn.vim'
 call plug#end()
 " }}}
-
 " Goyo {{{
 let g:goyo_linenr = 0
 " }}}
-
 " Gutentags {{{
 let g:gutentags_add_default_project_roots = 0
 let g:gutentags_project_root = ['package.json', '.git']
@@ -169,7 +167,6 @@ let g:gutentags_ctags_exclude = [
       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
       \ ]
 " }}}
-
 " Coc {{{
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
@@ -201,7 +198,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 " }}}
-
 " Coc-Git {{{
 nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
 " navigate chunks of current buffer
@@ -219,7 +215,6 @@ omap ic <Plug>(coc-text-object-outer)
 xmap ic <Plug>(coc-text-object-outer)
 
 " }}}
-
 " Test {{{
 let test#strategy = "dispatch"
 nmap <silent> t<C-n> :TestNearest<CR>
@@ -229,7 +224,6 @@ nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 let test#ruby#rspec#executable = "bin/rspec"
 " }}}
-
 " Dispatch {{{
 " }}}"
 " Gitgutter {{{
@@ -238,7 +232,6 @@ nmap <leader>cp <Plug>GitGutterPreviewHunk
 nmap <leader>ca <Plug>GitGutterStageHunk
 nmap <leader>cr <Plug>(GitGutterUndoHunk)
 " }}}
-
 " Switch {{{
 let g:switch_custom_definitions =
     \ [
@@ -274,12 +267,17 @@ nnoremap <leader>h :History<CR>
 nnoremap <leader>ch :History:<CR>
 noremap <silent> <F12> :BTags<CR>
 " }}}
-
 " Rspec {{{
 let g:rspec_command = "Dispatch RUBYOPT='-W0' bin/rspec {spec}"
 " }}}
-
 " Tmuxline {{{
+let g:tmuxline_powerline_separators = 1
+let g:tmuxline_separators = {
+    \ 'left' : '',
+    \ 'left_alt': '>',
+    \ 'right' : '',
+    \ 'right_alt' : '<',
+    \ 'space' : ' '}
 let g:tmuxline_preset = {
       \'a'    : '#S',
       \'b'    : '#W',
@@ -290,10 +288,29 @@ let g:tmuxline_preset = {
       \'y'    : '#W %R',
       \'z'    : '#H'}
 " }}}
+" Ayu {{{
+let ayucolor="light"
+colorscheme ayu
+" }}}"
+" nnn {{{
+" Floating window (neovim)
+function! s:layout()
+  let buf = nvim_create_buf(v:false, v:true)
 
-" Seoul256 {{{
-let g:seoul256_background = 236
-let g:seoul256_light_background = 252
-colo seoul256-light
+  let height = &lines - (float2nr(&lines / 3))
+  let width = float2nr(&columns - (&columns * 2 / 3))
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': 2,
+        \ 'col': 8,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+
+let g:nnn#layout = 'call ' . string(function('<SID>layout')) . '()'
 " }}}
 " vim:foldmethod=marker:foldlevel=0
