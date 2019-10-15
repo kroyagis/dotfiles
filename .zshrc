@@ -1,3 +1,4 @@
+export EDITOR="nvim"
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000
 export HISTFILESIZE=100000
@@ -11,12 +12,16 @@ setopt EXTENDED_HISTORY
 
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 export SSH_KEY_PATH="~/.ssh/rsa_id" # ssh
 
 eval "$(hub alias -s)"
 ##############################################
 ############### ZSH CUSTOM ###################
 ##############################################
+
+# Vi mode
+bindkey -v
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='
@@ -65,7 +70,7 @@ _gen_fzf_default_opts() {
 _gen_fzf_default_opts
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
-source $HOME/src/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/src/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 source /usr/local/share/chruby/chruby.sh 
 source /usr/local/share/chruby/auto.sh
@@ -78,3 +83,12 @@ for f in ~/.zsh/[0-9]*.(sh|zsh)
 do
   source "$f"
 done
+
+### Added by Zplugin's installer
+source "$HOME/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+### End of Zplugin installer's chunk
+
+zplugin zsh-users/zsh-completions
+zplugin light zdharma/fast-syntax-highlighting
