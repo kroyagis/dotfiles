@@ -86,7 +86,6 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <C-E> 2<C-E>
 nnoremap <C-Y> 2<C-Y>
-
 " Mimic Emacs Line Editing in Insert Mode Only
 inoremap <C-A> <Home>
 inoremap <C-B> <Left>
@@ -116,6 +115,7 @@ nmap <leader>w :w!<cr>
 
 call plug#begin('~/.vim/plugged')
 Plug 'vim-ruby/vim-ruby'
+Plug 'fatih/vim-go'
 Plug 'tpope/vim-endwise'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -239,3 +239,4 @@ noremap <silent> <F12> :BTags<CR>
 
 " for vim-rspec
 let g:rspec_command = "!bin/rspec {spec}"
+
