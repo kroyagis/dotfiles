@@ -2,7 +2,6 @@
 " General {{{
 syntax enable
 set synmaxcol=300
-set termguicolors
 set nobackup
 set nowritebackup
 set number relativenumber
@@ -43,7 +42,8 @@ set hlsearch
 set showcmd
 set backspace=indent,eol,start
 " }}}
-" Keymaps {{{
+
+" Keymaps ⌨ {{{
 let g:mapleader=" "
 inoremap kj <Esc>
 vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
@@ -57,6 +57,10 @@ nnoremap <C-Y> 2<C-Y>
 nnoremap H gT
 nnoremap L gt
 noremap <silent> <F4> :let @+=join([expand('%'),  line(".")], ':')<CR>
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 nnoremap <esc><esc> :nohl<CR>
 inoremap <C-A> <Home>
 inoremap <C-B> <Left>
@@ -71,7 +75,8 @@ cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 command! -count=1 -register D :+,+<count>d <reg><bar>norm! ``
 " }}}
-" Plugs {{{
+
+" Plugs 🔌 {{{
 call plug#begin('~/.vim/plugged')
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
@@ -91,7 +96,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'farmergreg/vim-lastplace'
 Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-vinegar'
+"Plug 'tpope/vim-vinegar'
 Plug 'junegunn/goyo.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'rhysd/vim-textobj-ruby'
@@ -114,11 +119,116 @@ Plug 'tpope/vim-commentary'
 Plug 'ayu-theme/ayu-vim'
 Plug 'vim-utils/vim-ruby-fold'
 Plug 'mcchrish/nnn.vim'
+Plug 'tpope/vim-sleuth'
+Plug 'dense-analysis/ale'
+Plug 'lifepillar/vim-solarized8'
 call plug#end()
 " }}}
+
+" Coc {{{
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+
+nmap <silent> fj <Plug>(coc-float-jump)
+nmap <silent> fh <Plug>(coc-float-hide)
+
+nmap <silent> rf <Plug>(coc-refactor)
+
+nmap <silent> rn <Plug>(coc-rename)
+
+nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> <leader>e  :<C-u>CocList -A --normal mru<cr>
+
+imap <C-l> <Plug>(coc-snippets-expand)
+vmap <C-j> <Plug>(coc-snippets-select)
+
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" }}}
+
+" Coc-Git {{{
+nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
+" navigate chunks of current buffer
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+" show chunk diff at current position
+nmap gs <Plug>(coc-git-chunkinfo)
+" show commit contains current position
+nmap gc <Plug>(coc-git-commit)
+nmap ga <Plug>(coc-git-stagechunk)
+" create text object for git chunks
+omap ic <Plug>(coc-text-object-inner)
+xmap ic <Plug>(coc-text-object-inner)
+omap ic <Plug>(coc-text-object-outer)
+xmap ic <Plug>(coc-text-object-outer)
+
+" }}}
+
+" Color {{{
+set termguicolors
+"let ayucolor="dark"
+"let ayucolor="mirage"
+"let ayucolor="light"
+"colorscheme ayu
+set background=light
+colorscheme solarized8_flat
+" }}}
+
+" Dispatch {{{
+" }}}"
+
+" Fzf {{{
+let g:fzf_colors =
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
+
+command! -bang -nargs=* Rg
+      \ call fzf#vim#grep('rg --column --no-heading --line-number --color=always --glob=!node_modules/* '.shellescape(<q-args>),
+      \ 1,
+      \ fzf#vim#with_preview(),
+      \ <bang>0)
+
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>r :Rg<CR>
+nnoremap <leader>o :BLines<CR>
+nnoremap <leader>h :History<CR>
+nnoremap <leader>ch :History:<CR>
+noremap <silent> <F12> :BTags<CR>
+" }}}
+
+" Gitgutter {{{
+set updatetime=100
+nmap <leader>cp <Plug>GitGutterPreviewHunk
+nmap <leader>ca <Plug>GitGutterStageHunk
+nmap <leader>cr <Plug>(GitGutterUndoHunk)
+" }}}
+
 " Goyo {{{
 let g:goyo_linenr = 0
 " }}}
+
 " Gutentags {{{
 let g:gutentags_add_default_project_roots = 0
 let g:gutentags_project_root = ['package.json', '.git']
@@ -167,132 +277,13 @@ let g:gutentags_ctags_exclude = [
       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
       \ ]
 " }}}
-" Coc {{{
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
 
-nmap <silent> fj <Plug>(coc-float-jump)
-nmap <silent> fh <Plug>(coc-float-hide)
-
-nmap <silent> rf <Plug>(coc-refactor)
-
-nmap <silent> rn <Plug>(coc-rename)
-
-nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
-nnoremap <silent> <leader>e  :<C-u>CocList -A --normal mru<cr>
-
-imap <C-l> <Plug>(coc-snippets-expand)
-vmap <C-j> <Plug>(coc-snippets-select)
-
-let g:coc_snippet_next = '<c-j>'
-let g:coc_snippet_prev = '<c-k>'
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-" }}}
-" Coc-Git {{{
-nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
-" navigate chunks of current buffer
-nmap [g <Plug>(coc-git-prevchunk)
-nmap ]g <Plug>(coc-git-nextchunk)
-" show chunk diff at current position
-nmap gs <Plug>(coc-git-chunkinfo)
-" show commit contains current position
-nmap gc <Plug>(coc-git-commit)
-nmap ga <Plug>(coc-git-stagechunk)
-" create text object for git chunks
-omap ic <Plug>(coc-text-object-inner)
-xmap ic <Plug>(coc-text-object-inner)
-omap ic <Plug>(coc-text-object-outer)
-xmap ic <Plug>(coc-text-object-outer)
-
-" }}}
-" Test {{{
-let test#strategy = "dispatch"
-nmap <silent> t<C-n> :TestNearest<CR>
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
-let test#ruby#rspec#executable = "bin/rspec"
-" }}}
-" Dispatch {{{
-" }}}"
-" Gitgutter {{{
-set updatetime=100
-nmap <leader>cp <Plug>GitGutterPreviewHunk
-nmap <leader>ca <Plug>GitGutterStageHunk
-nmap <leader>cr <Plug>(GitGutterUndoHunk)
-" }}}
-" Switch {{{
-let g:switch_custom_definitions =
-    \ [
-    \   ['☐', '☑']
-    \ ]
-" }}}
-" Fzf {{{
-let g:fzf_colors =
-      \ { 'fg':      ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'Normal'],
-      \ 'hl':      ['fg', 'Comment'],
-      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-      \ 'hl+':     ['fg', 'Statement'],
-      \ 'info':    ['fg', 'PreProc'],
-      \ 'border':  ['fg', 'Ignore'],
-      \ 'prompt':  ['fg', 'Conditional'],
-      \ 'pointer': ['fg', 'Exception'],
-      \ 'marker':  ['fg', 'Keyword'],
-      \ 'spinner': ['fg', 'Label'],
-      \ 'header':  ['fg', 'Comment'] }
-
-command! -bang -nargs=* Rg
-      \ call fzf#vim#grep('rg --column --no-heading --line-number --color=always --glob=!node_modules/* '.shellescape(<q-args>),
-      \ 1,
-      \ fzf#vim#with_preview(),
-      \ <bang>0)
-
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>r :Rg<CR>
-nnoremap <leader>o :BLines<CR>
-nnoremap <leader>h :History<CR>
-nnoremap <leader>ch :History:<CR>
-noremap <silent> <F12> :BTags<CR>
-" }}}
-" Rspec {{{
-let g:rspec_command = "Dispatch RUBYOPT='-W0' bin/rspec {spec}"
-" }}}
-" Tmuxline {{{
-let g:tmuxline_powerline_separators = 1
-let g:tmuxline_separators = {
-    \ 'left' : '',
-    \ 'left_alt': '>',
-    \ 'right' : '',
-    \ 'right_alt' : '<',
-    \ 'space' : ' '}
-let g:tmuxline_preset = {
-      \'a'    : '#S',
-      \'b'    : '#W',
-      \'c'    : '#(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD)',
-      \'win'  : '#I #W',
-      \'cwin' : '#I #W',
-      \'x'    : '%a',
-      \'y'    : '#W %R',
-      \'z'    : '#H'}
-" }}}
-" Ayu {{{
-let ayucolor="light"
-colorscheme ayu
-" }}}"
 " nnn {{{
+let g:nnn#action = {
+      \ '<c-t>': 'tab split',
+      \ '<c-x>': 'split',
+      \ '<c-v>': 'vsplit' }
+
 " Floating window (neovim)
 function! s:layout()
   let buf = nvim_create_buf(v:false, v:true)
@@ -313,4 +304,39 @@ endfunction
 
 let g:nnn#layout = 'call ' . string(function('<SID>layout')) . '()'
 " }}}
+
+" Rspec {{{
+let g:rspec_command = "Dispatch RUBYOPT='-W0' bin/rspec {spec}"
+" }}}
+
+" Switch {{{
+let g:switch_custom_definitions =
+    \ [
+    \   ['☐', '☑']
+    \ ]
+" }}}
+
+" Test {{{
+let test#strategy = "dispatch"
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+let test#ruby#rspec#executable = "bin/rspec"
+" }}}
+
+" Tmuxline {{{
+let g:tmuxline_powerline_separators = 1
+let g:tmuxline_preset = {
+      \'a'    : '#S',
+      \'b'    : '#W',
+      \'c'    : '#(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD)',
+      \'win'  : '#I #W',
+      \'cwin' : '#I #W',
+      \'x'    : '%a',
+      \'y'    : '#W %R',
+      \'z'    : '#H'}
+" }}}
+
 " vim:foldmethod=marker:foldlevel=0
