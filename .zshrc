@@ -1,4 +1,5 @@
-export EDITOR="nvim"
+export EDITOR=$VISUAL
+export VISUAL=nvim
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000
 export HISTFILESIZE=100000
@@ -6,23 +7,53 @@ export SAVEHIST=$HISTSIZE
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/Library/Python/3.7/bin:$PATH"
+export PATH=/usr/local/share/python:$PATH
 export SSH_KEY_PATH="~/.ssh/rsa_id" # ssh
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+bindkey -v
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^u' backward-kill-line
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+bindkey '^f' forward-char
+bindkey '^b' backward-char
+export KEYTIMEOUT=30
+
+ctrlz() {
+  if [[ $#BUFFER == 0 ]]; then
+    fg >/dev/null 2>&1 && zle redisplay
+  else
+    zle push-input
+  fi
+}
+zle -N ctrlz
+bindkey '^Z' ctrlz
+
+autoload -U edit-command-line; zle -N edit-command-line
+bindkey '^xe' edit-command-line
+
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -a cs change-surround
+bindkey -a ds delete-surround
+bindkey -a ys add-surround
+bindkey -M visual S add-surround
 
 eval "$(hub alias -s)"
 
-##############################################
-############### ZSH CUSTOM ###################
-##############################################
-
-# Vi mode
-bindkey -v
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
 		find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
       sed s/^..//) 2> /dev/null'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='
     --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all
 	  --color=bg+:#073642,bg:#002b36,spinner:#719e07,hl:#586e75
@@ -63,13 +94,11 @@ _gen_fzf_default_opts() {
 }
 _gen_fzf_default_opts
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-source $HOME/src/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-
-source /usr/local/share/chruby/chruby.sh 
+source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
 
-# fnm
 eval "$(fnm env --multi)"
 
 # load all .zsh config files
@@ -84,35 +113,31 @@ autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 ### End of Zplugin installer's chunk
 
-zplugin light 'zsh-users/zsh-completions'
-
 zplugin ice pick"async.zsh" src"pure.zsh"
 zplugin light sindresorhus/pure
 
-zplugin ice as"program" pick"bin/git-dsf"
-zplugin light zdharma/zsh-diff-so-fancy
+zplugin ice silent wait:1; zplugin light micha/resty
 
-# Binary release in archive, from GitHub-releases page. 
-# After automatic unpacking it provides program "fzf".
 zplugin ice from"gh-r" as"program"
 zplugin load junegunn/fzf-bin
 
-# sharkdp/bat
 zplugin ice as"command" from"gh-r" mv"bat* -> bat" pick"bat/bat"
 zplugin light sharkdp/bat
 
-# ogham/exa, replacement for ls
 zplugin ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
 zplugin light ogham/exa
 
-# cd
+zplugin light b4b4r07/zsh-gomi
+
 zplugin ice wait"0b" lucid
 zplugin light b4b4r07/enhancd
 
-# zsh-autopair
+zplugin ice blockf; zplugin light zsh-users/zsh-completions
+
 zplugin ice wait lucid
 zplugin load hlissner/zsh-autopair
 
 zplugin ice wait"1" lucid atinit"ZPLGM[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
 zplugin light zdharma/fast-syntax-highlighting
 
+export PATH="/usr/local/opt/qt/bin:$PATH"
