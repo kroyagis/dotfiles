@@ -1,31 +1,23 @@
 [core]
-	pager = diff-so-fancy | less -FXRi
-	hooksPath = ~/.git-templates/hooks
-	editor = nvim
-[color "diff-highlight"]
-  oldNormal = red bold
-  oldHighlight = red bold 52
-  newNormal = green bold
-  newHighlight = green bold 22
-[color "diff"]
-  algorithm = patience
-  tool = kitty
-  guitool = kitty.gui
+  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less -+F -+X
+  hooksPath = ~/.git-templates/hooks
+  editor = nvim
 [alias]
   aliases = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/'
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   integrate = !sh -c 'git push $1 $2:ready-to-merge/into-master/${2}' -
-	ignore = update-index --skip-worktree
-	unignore = update-index --no-skip-worktree
+  ignore = update-index --skip-worktree
+  unignore = update-index --no-skip-worktree
   ignored = !git ls-files -v . | grep "^S"
-	prl = pr list
-	prlu = pr list -f \"%sC%>(8)%i%Creset  %<(50)%t% l  %Cmagenta%U %n\"
+  prl = pr list
+  prlu = pr list -f \"%sC%>(8)%i%Creset  %<(50)%t% l  %Cmagenta%U %n\"
 [user]
-	email = jiy@nulogy.com
-	name = Ji You
+  email = jiy@nulogy.com
+  name = Ji You
 [pull]
-	rebase = true
+  rebase = true
 [diff]
+  algorithm = patience
   tool = kitty
   guitool = kitty.gui
 [difftool]
@@ -36,7 +28,9 @@
 [difftool "kitty.gui"]
   cmd = kitty kitty +kitten diff $LOCAL $REMOTE
 [pager]
-	show = true
-	log = "less -F"
+  show = true
+  log = "less -F"
 [status]
-	short = true
+  short = true
+[commit]
+  verbose = true
