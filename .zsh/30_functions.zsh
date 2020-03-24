@@ -52,7 +52,7 @@ FZF-EOF"
 }
 
 function fjr() {
-  jira pm1 |
+  COLUMNS=200 jira pm1 |
   fzf --ansi --height 100% --no-sort --reverse --tiebreak=index \
       --bind "ctrl-m:execute:
                 (grep -o 'PM-[0-9]*' |

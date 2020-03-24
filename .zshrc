@@ -11,6 +11,8 @@ export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 export PATH=/usr/local/share/python:$PATH
 export SSH_KEY_PATH="~/.ssh/rsa_id" # ssh
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export GHDASHBOARD_GITHUB_TOKEN=$(security find-generic-password -s 'GHDashboard GitHub Token' -w)
+export DB_PACKMANAGER_DEVELOPMENT=$(security find-generic-password -s 'DB packmanager_development' -w)
 
 bindkey -v
 bindkey '^P' up-history

@@ -5,13 +5,9 @@ set synmaxcol=300
 set nobackup
 set nowritebackup
 set nohidden
-if exists('g:started_by_firenvim')
-  set nonumber norelativenumber
-  set laststatus=0
-else
-  set number relativenumber
-  set laststatus=2
-endif
+set number relativenumber
+set laststatus=2
+set inccommand=split
 set mouse=a
 set clipboard=unnamed
 set signcolumn=yes
@@ -52,24 +48,22 @@ if has("persistent_undo")
     set undodir=~/.config/nvim/.undo
     set undofile
 endif
-set autowrite
-set autowriteall
-set autoread
-autocmd FocusGained,CursorHold ?* if getcmdwintype() == '' | checktime | endif
-augroup save
-  au!
-  au FocusLost * wall
-augroup END
+set diffopt+=vertical
+" set autowrite
+" set autowriteall
+" set autoread
+" autocmd FocusGained,CursorHold ?* if getcmdwintype() == '' | checktime | endif
+" augroup save
+"   au!
+"   au FocusLost * wall
+" augroup END
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 set updatetime=100
 filetype on
 " }}}
 
 " Keymaps ⌨ {{{
-nmap <Plug>DuplicateRubyBlock yarp
-nmap crp <Plug>DuplicateRubyBlock
 let g:mapleader=" "
-inoremap kj <Esc>
 vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
 vnoremap v $h
 nnoremap <C-E> 2<C-E>
@@ -98,29 +92,24 @@ command! -count=1 -register D :+,+<count>d <reg><bar>norm! ``
 
 " Plugs 🔌 {{{
 call plug#begin('~/.vim/plugged')
+Plug 'kassio/neoterm'
 Plug 'rhysd/git-messenger.vim'
+Plug 'tpope/vim-dadbod'
 Plug 'andymass/vim-matchup'
-Plug 'skanehira/preview-markdown.vim'
-Plug 'junegunn/vim-github-dashboard'
 Plug 'bfredl/nvim-miniyank'
+Plug 'junegunn/vim-github-dashboard'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-Plug 'kassio/neoterm'
 Plug 'wsdjeg/vim-fetch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-rhubarb'
 Plug 'zackhsi/fzf-tags'
-Plug 'kassio/neoterm'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'qpkorr/vim-bufkill'
+Plug 'neomake/neomake'
 Plug 'benmills/vimux'
 Plug 'endel/vim-github-colorscheme'
-Plug 'rhysd/committia.vim'
 Plug 'mbbill/undotree'
-Plug 'miyakogi/seiya.vim'
-Plug 'mhinz/vim-startify'
-Plug 'brooth/far.vim'
 Plug 'junegunn/gv.vim'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
@@ -143,14 +132,11 @@ Plug 'tpope/vim-projectionist'
 Plug 'junegunn/goyo.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'rhysd/vim-textobj-ruby'
-"Plug 'RRethy/vim-illuminate'
-Plug 'thoughtbot/vim-rspec'
 Plug 'edkolev/tmuxline.vim'
 Plug 'kana/vim-textobj-line'
 Plug 'markonm/hlyank.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'honza/vim-snippets'
-Plug 'chrisbra/csv.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'dhruvasagar/vim-zoom'
 Plug 'christoomey/vim-tmux-navigator'
@@ -162,10 +148,9 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'vim-utils/vim-ruby-fold'
 Plug 'mcchrish/nnn.vim'
 Plug 'tpope/vim-sleuth'
-"Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 Plug 'lifepillar/vim-solarized8'
 Plug 'chrisbra/csv.vim'
-"Plug 'cormacrelf/vim-colors-github'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 call plug#end()
@@ -235,18 +220,11 @@ nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep
 "xmap ig <Plug>(coc-text-object-inner)
 "omap ag <Plug>(coc-text-object-outer)
 "xmap ag <Plug>(coc-text-object-outer)
-
 " }}}
 
 " Color {{{
-"set termguicolors
-"let ayucolor="dark"
-"let ayucolor="mirage"
-"let ayucolor="light"
-"colorscheme ayu
 colorscheme PaperColor
 set background=light
-"hi Normal guibg=NONE ctermbg=NONE
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.light': {
@@ -256,23 +234,8 @@ let g:PaperColor_Theme_Options = {
   \ }
 " }}}
 
-" Dispatch {{{
-" }}}"
-
-" Floaterm {{{
-let g:floaterm_position='center'
-
-noremap  <silent> <F12> :FloatermToggle<CR>i
-noremap! <silent> <F12> <Esc>:FloatermToggle<CR>i
-tnoremap <silent> <F12> <C-\><C-n>:FloatermToggle<CR>
-" }}}
-
-" Fugitive {{{
-"nmap gc :Gcommit -v
-" }}}
-
 " Fzf {{{
-" Jump to the existing window if possible
+" Jump to the existing windows if possible
 "let g:fzf_buffers_jump = 1
 " Customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
@@ -292,17 +255,6 @@ command! -bang -nargs=* Rg
 nnoremap <leader>d :call fzf#vim#tags('^' . expand('<cword>'), {'options': '--exact --select-1 --exit-0 +i'})<CR>
 
 nmap <C-]> <Plug>(fzf_tags)
-
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " releative file path completion
 imap <expr> <c-x><c-f> fzf#vim#complete#path('git ls-files $(git rev-parse --show-toplevel)')
@@ -334,7 +286,6 @@ function! s:fzf_statusline()
 endfunction
 
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
-
 let g:fzf_colors =
       \ { 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
@@ -352,7 +303,8 @@ let g:fzf_colors =
 
 nmap ; :Buffers<CR>
 nnoremap <leader>f :Files<CR>
-nnoremap <leader>r :Rg<CR>
+nnoremap <leader>rp :%s/<C-R><C-W>//g<left><left>
+nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
 nnoremap <leader>o :BLines<CR>
 nnoremap <leader>h :History<CR>
 nnoremap <leader>ch :History:<CR>
@@ -432,10 +384,6 @@ map <leader>n <Plug>(miniyank-cycle)
 map <leader>N <Plug>(miniyank-cycleback)
 " }}}
 
-" Custom Commands{{{
-command! KittyDiff !git difftool --no-symlinks --dir-diff
-"<leader> }}}
-
 " GHDashboard {{{
 let g:github_dashboard = { 'username': 'kroyagis', 'password': $GHDASHBOARD_GITHUB_TOKEN }
 " let g:github_dashboard['api_endpoint'] = 'https://github.com/nulogy/PackManager/api/v3'
@@ -489,10 +437,18 @@ let g:switch_custom_definitions =
 " }}}
 
 " neoterm {{{
-let g:neoterm_default_mod='tab'
+nnoremap <Leader>0 :Ttoggle <CR>
+
+let g:neoterm_default_mod='botright'
+let g:neoterm_autoscroll = '1'
+"let g:neoterm_size = 16
 
 " 3<leader>tl will clear neoterm-3.
 nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
+" }}}
+
+" Ale {{{
+let g:ale_set_highlights = 0
 " }}}
 
 " Test {{{
@@ -531,21 +487,37 @@ nnoremap <F5> :UndotreeToggle<cr>
 "}}}
 
 " Firenvim {{{
-" if exists('g:started_by_firenvim')
-"   set laststatus=0
-"   set nonumber
-" else
-"   set laststatus=2
-" endif
+function! s:IsFirenvimActive(event) abort
+  if !exists('*nvim_get_chan_info')
+    return 0
+  endif
+  let l:ui = nvim_get_chan_info(a:event.chan)
+  return has_key(l:ui, 'client') && has_key(l:ui.client, "name") &&
+      \ l:ui.client.name is# "Firenvim"
+endfunction
+
+function! OnUIEnter(event) abort
+  if s:IsFirenvimActive(a:event)
+    let g:startify_disable_at_vimenter = 1
+    set nonumber norelativenumber
+    set laststatus=0
+    set guicursor=
+    set spell
+  endif
+endfunction
+autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
 
 let g:firenvim_config = {
+    \ 'globalSettings': {
+        \ 'alt': 'all',
+    \  },
     \ 'localSettings': {
-        \ 'atlassian.net': {
-            \ 'selector': '',
+        \ '.*': {
+            \ 'cmdline': 'neovim',
+            \ 'priority': 0,
+            \ 'selector': 'textarea',
+            \ 'takeover': 'never',
         \ },
-        \ 'slack.com': {
-            \ 'selector': '',
-        \ }
     \ }
 \ }
 
@@ -557,15 +529,4 @@ let g:indent_guides_auto_colors = 0
 let g:indentLine_char = '┊'
 " }}}
 
-" vim-indent-guides{{{
-"let g:indent_guides_auto_colors = 0
-"hi IndentGuidesOdd  guibg=red   ctermbg=white
-"hi IndentGuidesEven guibg=green ctermbg=255
-"let g:indent_guides_enable_on_vim_startup = 1
-"hi IndentGuidesOdd  ctermbg=white
-"hi IndentGuidesEven ctermbg=255
-"let g:indent_guid_start_level=2
-"let g:indent_guide_size=1
-" }}}
-"
 " vim:foldmethod=marker:foldlevel=0
