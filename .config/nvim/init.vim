@@ -20,6 +20,9 @@ let g:ruby_indent_assignment_style='variable'
 set expandtab
 set tabstop=2
 set softtabstop=2
+autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
+"autocmd FileType go setlocal expandtab
+filetype plugin indent on
 set autoindent
 set smartindent
 set scrolloff=5
@@ -32,7 +35,8 @@ set matchtime=3
 set wrap
 set textwidth=0
 set list
-set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
+"set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
+:set listchars=tab:\│\ ,trail:-,extends:>,precedes:<,nbsp:+
 set shiftround
 set infercase
 set virtualedit=onemore
@@ -87,11 +91,14 @@ nnoremap <silent> + :let winstate = winsaveview()<bar>
       \ unlet winstate<cr>
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
+noremap Zz <c-w>_ \| <c-w>\|
+noremap Zo <c-w>=
 command! -count=1 -register D :+,+<count>d <reg><bar>norm! ``
 " }}}
 
 " Plugs 🔌 {{{
 call plug#begin('~/.vim/plugged')
+Plug 'fatih/vim-go'
 Plug 'kassio/neoterm'
 Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-dadbod'
@@ -107,7 +114,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'zackhsi/fzf-tags'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'neomake/neomake'
-Plug 'benmills/vimux'
+Plug 'hupfdule/vimux'
 Plug 'endel/vim-github-colorscheme'
 Plug 'mbbill/undotree'
 Plug 'junegunn/gv.vim'
@@ -204,7 +211,12 @@ nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep
 
 "nnoremap <silent> <space>w  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
 " }}}
-
+call textobj#user#plugin('file', {
+      \ 'file': {
+      \ 'pattern': '\f\+', 'select': ['af', 'if']
+      \ }
+      \ })
+" }}}
 " Coc-Git {{{
 " navigate chunks of current buffer
 "nmap [g <Plug>(coc-git-prevchunk)
@@ -223,15 +235,16 @@ nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep
 " }}}
 
 " Color {{{
-colorscheme PaperColor
-set background=light
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.light': {
-\         'allow_italic' : 1
+  \     'transparent_background': 1,
+  \     'allow_italic' : 1
   \     }
   \   }
   \ }
+set background=light
+colorscheme PaperColor
 " }}}
 
 " Fzf {{{
@@ -252,7 +265,7 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
-nnoremap <leader>d :call fzf#vim#tags('^' . expand('<cword>'), {'options': '--exact --select-1 --exit-0 +i'})<CR>
+"nnoremap <leader>d :call fzf#vim#tags('^' . expand('<cword>'), {'options': '--exact --select-1 --exit-0 +i'})<CR>
 
 nmap <C-]> <Plug>(fzf_tags)
 
@@ -268,6 +281,7 @@ command! QHist call fzf#vim#search_history()
 nnoremap q/ :QHist<CR>
 
 nnoremap <silent> <Leader>; :Commands<CR>
+nnoremap <silent> <Leader>d :BTags<CR>
 
 augroup fzf
   autocmd!
@@ -451,6 +465,9 @@ nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 let g:ale_set_highlights = 0
 " }}}
 
+" fugitive {{{
+nmap <silent> <C-s> :Gtabedit :<CR>
+"}}}
 " Test {{{
 let test#strategy = "dispatch"
 nmap <silent> t<C-n> :TestNearest<CR>
@@ -464,7 +481,7 @@ if has('nvim')
 endif
 
 let test#strategy = {
-  \ 'nearest': 'neoterm',
+  \ 'nearest': 'neovim',
   \ 'file': 'dispatch'
 \}
 " }}}

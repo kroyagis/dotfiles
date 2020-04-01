@@ -37,7 +37,7 @@ alias ga='git add'
 alias gaa='git add --all'
 alias gap='git add -N . && git add -p'
 
-alias gb='git branch'
+#alias gb='git branch'
 
 alias gc='git commit -v'
 alias gc!='git commit -v --amend'
@@ -69,8 +69,8 @@ alias grc='git rebase --continue'
 alias gri='git rebase -i'
 alias grs='git rebase --skip'
 
-alias gss='git status -s'
 alias gst='git status'
+alias gsl='git status --long'
 
 alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
 

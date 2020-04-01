@@ -5,26 +5,41 @@ cfg-zsh() {
   printf '%s\n' $files | fzf -m --height 40% --reverse | xargs nvim
 }
 
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+
 fzf-down() {
   fzf --height 50% "$@" --border
 }
 
-gbb() {
-  branch=$(git branch -a --color=always | grep -v '/HEAD\s' | sort |
+gb() {
+  is_in_git_repo || return
+  git branch -a --color=always | grep -v '/HEAD\s' | sort |
   fzf-down --ansi --multi --tac --preview-window right:70% \
-    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
+    --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
   sed 's/^..//' | cut -d' ' -f1 |
-  sed 's#^remotes/origin/##') &&
-  git checkout $branch
+  sed 's#^remotes/##'
 }
 
-# Checkout branch
-fbr() {
-  local branches branch
-  branches=$(git branch -vv) &&
-  branch=$(echo "$branches" | fzf +m --height 40% --reverse) &&
-  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+join-lines() {
+  local item
+  while read item; do
+    echo -n "${(q)item} "
+  done
 }
+
+bind-git-helper() {
+  local c
+  for c in $@; do
+    eval "fzf-g$c-widget() { local result=\$(g$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
+    eval "zle -N fzf-g$c-widget"
+    eval "bindkey '^g^$c' fzf-g$c-widget"
+  done
+}
+
+bind-git-helper f b t r h
+unset -f bind-git-helper
 
 # Delete branch
 fbrd() {
