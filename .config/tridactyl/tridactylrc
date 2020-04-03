@@ -1,0 +1,103 @@
+" vim: filetype=vim
+sanitize tridactyllocal tridactylsync
+
+colorscheme base16-solarized-light
+
+set newtab about:blank
+set editorcmd vimr
+
+unbind <F1>
+
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
+bind ,<Space> nohlsearch
+
+" Smooth scrolling, yes please. This is still a bit janky in Tridactyl.
+set smoothscroll true
+
+" The default jump of 10 is a bit much.
+bind j scrollline 5
+bind k scrollline -5
+
+" K and J should move between tabs. x should close them.
+bind K tabprev
+bind J tabnext
+bind x tabclose
+
+bind --mode=ex          <C-a>   text.beginning_of_line
+bind --mode=insert      <C-a>   text.beginning_of_line
+bind --mode=input       <C-a>   text.beginning_of_line
+bind --mode=ex          <C-e>   text.end_of_line
+bind --mode=insert      <C-e>   text.end_of_line
+bind --mode=input       <C-e>   text.end_of_line
+bind --mode=ex          <C-f>   text.forward_word
+bind --mode=insert      <C-f>   text.forward_word
+bind --mode=input       <C-f>   text.forward_word
+bind --mode=ex          <C-k>   text.kill_line
+bind --mode=insert      <C-k>   text.kill_line
+bind --mode=input       <C-k>   text.kill_line
+bind --mode=ex          <C-u>   text.backward_kill_line
+bind --mode=insert      <C-u>   text.backward_kill_line
+bind --mode=input       <C-u>   text.backward_kill_line
+" Requires custom firefox build: https://github.com/glacambre/firefox-patches
+bind --mode=ex          <C-w>   text.backward_kill_word
+bind --mode=insert      <C-w>   text.backward_kill_word
+bind --mode=input       <C-w>   text.backward_kill_word
+bind --mode=ex          <C-y>   ex.insert_completion
+bind --mode=ex          <C-e>   ex.deselect_completion
+bind --mode=ex          <C-n>   ex.next_completion
+bind --mode=ex          <C-p>   ex.prev_completion
+
+" Sometimes the status bar in the bottom left corner overlaps the Tridactyl
+" command line, so set an option to move the status bar to the right.
+guiset_quiet hoverlink right
+
+bindurl google(\.[a-zA-Z0-9]+){1,2}/search f hint -Jc #top_nav a, #search a, .card-section a, a.fl, #pnnext, #pnprev
+bindurl google(\.[a-zA-Z0-9]+){1,2}/search F hint -Jbc #top_nav a, #search a, .card-section a, a.fl, #pnnext, #pnprev
+bindurl slack.com ;m hint -c [class="p-rich_text_section"]
+
+set allowautofocus false
+"set searchengine qwant
+
+" Disable all searchurls
+jsb Object.keys(tri.config.get("searchurls")).forEach(u => tri.config.set("searchurls", u, '""'))
+
+" Add our own
+set searchurls.g https://www.google.ca/search?q=%s
+set searchurls.gmaps https://www.google.ca/maps/search/%s
+
+" Custom binds
+
+" Open about window to update
+bind ,s source
+
+" Tab and window management
+bind gd tabdetach
+bind gD composite tabduplicate | tabdetach
+bind D tabduplicate
+
+bind ,h hint -W exclaim_quiet $TERMINAL echo hello
+bind ,r hint -W exclaim_quiet $TERMINAL tuir --enable-media
+
+command grs open http://localhost:3000
+command gqa open https://qa-master-packmanager.nulogy.net/sign_in
+command gqm open https://packmanager-melissa.cloudfront.packmanager-test.nulogy.com/sign_in
+command gjs open https://nulogy-go.atlassian.net/secure/RapidBoard.jspa?rapidView=36&projectKey=PM
+command gjb open https://nulogy-go.atlassian.net/secure/RapidBoard.jspa?rapidView=36&view=planning.nodetail
+command gbk open https://buildkite.com/builds
+
+command skus_index urlmodify -g 0 skus
+command projects_index urlmodify -g 0 projects
+command dev_toggles urlmodify -g 0 release_toggles/in_development
+command release_toggles urlmodify -g 0 release_toggles/ready_for_release
+command new_object urlmodify -g -1 new
+
+bindurl (localhost:3000|https://qa-master-packmanager.nulogy.net|https://packmanager-melissa.cloudfront.packmanager-test.nulogy.com|https://packmanager-shah.cloudfront.packmanager-test.nulogy.com) gs skus_index
+bindurl (localhost:3000|https://qa-master-packmanager.nulogy.net|https://packmanager-melissa.cloudfront.packmanager-test.nulogy.com|https://packmanager-shah.cloudfront.packmanager-test.nulogy.com) gp projects_index
+bindurl (localhost:3000|https://qa-master-packmanager.nulogy.net|https://packmanager-melissa.cloudfront.packmanager-test.nulogy.com|https://packmanager-shah.cloudfront.packmanager-test.nulogy.com) gr dev_toggles
+bindurl (localhost:3000|https://qa-master-packmanager.nulogy.net|https://packmanager-melissa.cloudfront.packmanager-test.nulogy.com|https://packmanager-shah.cloudfront.packmanager-test.nulogy.com) <C-n> hint -f Create
+bindurl (localhost:3000|https://qa-master-packmanager.nulogy.net|https://packmanager-melissa.cloudfront.packmanager-test.nulogy.com|https://packmanager-shah.cloudfront.packmanager-test.nulogy.com) <C-e> hint -f Edit
+bindurl (localhost:3000|https://qa-master-packmanager.nulogy.net|https://packmanager-melissa.cloudfront.packmanager-test.nulogy.com|https://packmanager-shah.cloudfront.packmanager-test.nulogy.com) <C-s> hint -f Save
+bindurl (localhost:3000|https://qa-master-packmanager.nulogy.net|https://packmanager-melissa.cloudfront.packmanager-test.nulogy.com|https://packmanager-shah.cloudfront.packmanager-test.nulogy.com) <C-c> hint -f Cancel
